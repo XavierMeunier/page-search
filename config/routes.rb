@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
   
-  root 'welcome#index'
-  
+  root                      to: 'facebook_pages#index'          , via: 'get'
+  match '/:fb_id',          to: 'facebook_pages#index'          , via: 'get',   as: 'index'
+  match '/fb_page/:id',     to: 'facebook_pages#show'           , via: 'get',   as: 'feeds'
+  match '/search',          to: 'facebook_pages#page_search'    , via: 'post',  as: 'search'
+
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
