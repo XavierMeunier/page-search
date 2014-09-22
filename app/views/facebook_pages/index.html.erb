@@ -1,0 +1,38 @@
+Index
+
+<% if flash[:alert] %>
+  <p class="flash-error"><%= flash[:alert] %></p>
+<% end %>
+<% if flash[:notice] %>
+  <p class="flash-notice"><%= flash[:notice] %></p>
+<% end %>
+
+
+<%= form_tag(controller: "facebook_pages", action: "page_search", method: "post") do %>
+
+  <%= label_tag :fb_id %>
+  <%= text_field_tag :fb_id, params[:fb_id] %>
+
+  <%= submit_tag "Search", class: "btn btn-large btn-primary" %>
+
+<% end %>
+
+
+<% if !@fb_page.blank? %>
+  <%= @fb_page.attributes %>
+<% end %>
+
+<% if !@fb_pages.blank? %>
+  <% @fb_pages.each do |f| %>
+    <%= f.attributes %>
+    
+    
+  <% end %>
+<% end %>
+
+<div
+  class="fb-like"
+  data-share="true"
+  data-width="450"
+  data-show-faces="true">
+</div>
