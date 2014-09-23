@@ -1,3 +1,193 @@
-// Place all the styles related to the welcome controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+/* -- GENERAL -- */
+html, body{font-size: 62.5%;}
+html{height: 100%;}
+body{min-height: 100%;}
+
+/* FONT-FACE */
+  @font-face{
+    font-family : "Lato-Lig";
+  
+    src : url('/assets/Lato-Lig/Lato-Lig.eot'); /* Pour IE9 Compat mode */
+    src : url('/assets/Lato-Lig/Lato-Lig.eot?') format('eot'),
+        url('/assets/Lato-Lig/Lato-Lig.woff') format('woff'),
+        url('/assets/Lato-Lig/Lato-Lig.svg') format('svg'), /*  .svg#abcd */
+        url('/assets/Lato-Lig/Lato-Lig.ttf') format('truetype');
+  }
+  
+  @font-face{
+    font-family : "Lato-Reg";
+  
+    src : url('/assets/Lato-Reg/Lato-Reg.eot'); /* Pour IE9 Compat mode */
+    src : url('/assets/Lato-Reg/Lato-Reg.eot?') format('eot'),
+        url('/assets/Lato-Reg/Lato-Reg.woff') format('woff'),
+        url('/assets/Lato-Reg/Lato-Reg.svg') format('svg'), /*  .svg#abcd */
+        url('/assets/Lato-Reg/Lato-Reg.ttf') format('truetype');
+  }
+
+$blue: #3b5998;
+$grey: #888888;
+$white: #fff;
+$black: #121212;
+$main-width: 600px;
+
+$size5: 0.8rem;
+$size4: 1.1rem;
+$size3: 1.4rem;
+$size2: 2.3rem;
+$size1: 3.0rem;
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
+}
+
+
+/* -- CONTAINER -- */
+#container{
+  position: relative;
+  height: 100%;
+  font-family:  "Lato-Reg";
+}
+
+h1, h2, h3, h4{text-transform: uppercase;}
+
+h1{font-size: $size1; color: $white; text-align: center; }
+h3{font-size: $size3; color: $blue;}
+a{text-decoration: none; color: $black;}
+
+
+/* -- HEADER -- */
+header{
+  position:         absolute;
+  top:              0;
+  width:            100%;
+  height:           200px;
+  background-image: image-url("header.jpg");
+  background-size:  cover;
+  
+  .title{
+    position: relative;
+    top:      20%;
+    width:    $main-width;
+    margin:   0 auto;
+    h1{font-size: $size1;}
+  }
+  form{
+    position: absolute;
+    top:      55%;
+    left:     50%;
+    width:    $main-width;
+    height:   40px;
+    margin:   0px 0px 0px -300px;
+    *{
+      border: none;
+    }
+    #fb_id{
+      float:    left;
+      height:   30px;
+      width:    500px;
+      padding:  5px 10px; 
+    }
+    .btn{
+      float:            left;
+      height:           40px;
+      width:            80px;
+      text-transform:   uppercase;
+      background-color: $blue;
+      color:            $white;
+      font-family:      "Lato-Lig";
+    }
+  }
+}
+
+/* -- CONTENT -- */
+#content{
+  position: relative;
+  top:      200px;
+  
+  .like{
+    width: 150px;
+    height: 25px;
+    text-align: center;
+    color: $blue;
+    font-size: $size4;
+    span{font-size: $size3;}
+  }
+  
+  .result_container{
+    float:left;
+    width: 100%;
+    margin-bottom: 50px;
+    .result{
+      position:     relative;
+      padding:      2% 0;
+      width:        $main-width;
+      margin:       0 auto;
+      .infos{
+        float: left;
+        width: 100%;
+        min-height: 195px;
+        position: relative;
+        img{
+          display:  block;
+          position: absolute;
+          bottom:   40px;
+          left:     0;
+        }
+        .like{
+          position: absolute;
+          bottom: 0;
+          left:   0;
+        }
+        .text{
+          float:  right;
+          width:  350px;
+          font-size: $size5;
+          h3{font-size: $size3;}
+        }
+      }
+    }
+  }
+  .mid_sep{
+    position: relative;
+    width:    1000px;
+    margin:   0 auto;
+  }
+  .recent_searches_container{
+    float: left;
+    width: 100%;
+    margin: 20px 0px 0px 0px;
+    .recent_searches{
+      position:   relative;
+      width:      80%;
+      min-width: 1140px;
+      margin:     0 auto;
+      text-align: center;
+      h2{
+        position: absolute;
+        left: 0;
+        font-size: $size2;
+      }
+      .page{
+        position: relative;
+        display:  inline-block;
+        margin: 60px 1%;
+        .name{margin-bottom: 20px;}
+        .box{
+          padding: 15px 25px;
+          border: 1px solid $grey;
+          @include border-radius(5px);
+        }
+      }
+    }
+  }
+}
+
+
+/* -- FOOTER -- */
+footer{
+  position: fixed;
+  bottom:   0;
+}
