@@ -2,6 +2,36 @@ Show
 
 <%= @fb_page.name%> App
 
+Feeds : 
+
+<% @feeds.each_with_index do |f, index| %>
+
+  INDEX : <%= index%><br />
+
+  <a href="<%= f[:content][:link] %>">
+    <%= f[:from] %><br />
+    <%= f[:message] %><br />
+    <%= time_ago_in_words(Time.parse(f[:created_at])) %><br />
+    <h2><%= f[:content][:title]%></h2><br />
+    <h4><%= f[:content][:caption]%></h4><br />
+    <img src="<%= f[:content][:picture] %>" /><br />
+    <p>
+      <%= f[:content][:description]%>
+    </p><br />
+  </a>
+  <br />
+  <br />
+  <%= f.to_s%>
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+<% end %>
+
 <div
   class="fb-like"
   data-share="true"

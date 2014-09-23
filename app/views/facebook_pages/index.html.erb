@@ -1,5 +1,3 @@
-Index
-
 <% if flash[:alert] %>
   <p class="flash-error"><%= flash[:alert] %></p>
 <% end %>
@@ -8,31 +6,44 @@ Index
 <% end %>
 
 
-<%= form_tag(controller: "facebook_pages", action: "page_search", method: "post") do %>
-
-  <%= label_tag :fb_id %>
-  <%= text_field_tag :fb_id, params[:fb_id] %>
-
-  <%= submit_tag "Search", class: "btn btn-large btn-primary" %>
-
-<% end %>
-
-
 <% if !@fb_page.blank? %>
-  <%= @fb_page.attributes %>
+<div class="result_container">
+  <div class="result">
+    <div class="infos">
+      <%= link_to(feeds_path(@fb_page.id)) do %>
+        <img src="<%= @fb_page.logo_path%>" alt="<%= @fb_page.name %>" width="150" height="150" />
+      <% end %>
+      <div class="like"><span><%= @fb_page.likes %></span> Likes</div>
+      <div class="text">
+        <%= link_to(feeds_path(@fb_page.id)) do %>
+          <h3><%= @fb_page.name %></h3><br />
+        <% end %>
+        <p><%= @fb_page.description %></p>
+      </div>
+    </div>
+  </div>
+</div>
+<hr class="mid_sep" />
 <% end %>
-
-<% if !@fb_pages.blank? %>
-  <% @fb_pages.each do |f| %>
-    <%= f.attributes %>
-    
-    
-  <% end %>
-<% end %>
-
-<div
-  class="fb-like"
-  data-share="true"
-  data-width="450"
-  data-show-faces="true">
+<div class="recent_searches_container">
+  <div class="recent_searches">
+    <h2>Recent Searches</h2> 
+    <% if !@fb_pages.blank? %>
+      <% @fb_pages.each do |f| %>
+        <div class="page">
+          <div class="name">
+            <%= link_to feeds_path(f.id) do %>
+              <h3><%= f.name %></h3>
+            <% end %>
+          </div>
+          <div class="box">
+            <%= link_to(feeds_path(f.id)) do %>
+              <img src="<%= f.logo_path%>" alt="<%= f.name %>" width="150" height="150" />
+            <% end %>
+            <div class="like"><span><%= f.likes %></span> Likes</div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
 </div>

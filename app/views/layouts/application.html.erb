@@ -24,8 +24,27 @@
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
 </script>
-
-<%= yield %>
-
+<div id="container">
+  <header>
+    <div class="title">
+      <h1>Page Search</h1>
+    </div>
+    <%= form_tag(controller: "facebook_pages", action: "page_search", method: "post") do %>
+      <%= text_field_tag :fb_id, params[:fb_id], placeholder: "Exemple: 8946498596" %>
+      <%= submit_tag "Search", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </header>
+  <div id="content">
+    <%= yield %>
+  </div>
+  <footer>
+    <div
+      class="fb-like"
+      data-share="true"
+      data-width="450"
+      data-show-faces="true">
+    </div>
+  </footer>
+</div>
 </body>
 </html>
