@@ -19,7 +19,8 @@ module PageSearch
 
     # Enable the asset pipeline
     config.assets.enabled = true
-    config.assets.paths << "#{Rails.root}/app/assets/fonts" 
+    config.assets.paths << "#{Rails.root}/app/assets/fonts"
+    config.assets.precompile += %w( .svg .eot .woff .ttf )
 
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.

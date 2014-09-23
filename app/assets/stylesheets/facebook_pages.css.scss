@@ -7,21 +7,21 @@ body{min-height: 100%;}
   @font-face{
     font-family : "Lato-Lig";
   
-    src : url('/assets/Lato-Lig/Lato-Lig.eot'); /* Pour IE9 Compat mode */
-    src : url('/assets/Lato-Lig/Lato-Lig.eot?') format('eot'),
-        url('/assets/Lato-Lig/Lato-Lig.woff') format('woff'),
-        url('/assets/Lato-Lig/Lato-Lig.svg') format('svg'), /*  .svg#abcd */
-        url('/assets/Lato-Lig/Lato-Lig.ttf') format('truetype');
+    src : url(font-path('Lato-Lig/Lato-Lig.eot')); /* Pour IE9 Compat mode */
+    src : url(font-path('Lato-Lig/Lato-Lig.eot?')) format('eot'),
+        url(font-path('Lato-Lig/Lato-Lig.woff')) format('woff'),
+        url(font-path('Lato-Lig/Lato-Lig.svg')) format('svg'), /*  .svg#abcd */
+        url(font-path('Lato-Lig/Lato-Lig.ttf')) format('truetype');
   }
   
   @font-face{
     font-family : "Lato-Reg";
   
-    src : url('/assets/Lato-Reg/Lato-Reg.eot'); /* Pour IE9 Compat mode */
-    src : url('/assets/Lato-Reg/Lato-Reg.eot?') format('eot'),
-        url('/assets/Lato-Reg/Lato-Reg.woff') format('woff'),
-        url('/assets/Lato-Reg/Lato-Reg.svg') format('svg'), /*  .svg#abcd */
-        url('/assets/Lato-Reg/Lato-Reg.ttf') format('truetype');
+    src : url(font-path('Lato-Reg/Lato-Reg.eot')); /* Pour IE9 Compat mode */
+    src : url(font-path('Lato-Reg/Lato-Reg.eot?')) format('eot'),
+        url(font-path('Lato-Reg/Lato-Reg.woff')) format('woff'),
+        url(font-path('Lato-Reg/Lato-Reg.svg')) format('svg'), /*  .svg#abcd */
+        url(font-path('Lato-Reg/Lato-Reg.ttf')) format('truetype');
   }
 
 $blue: #3b5998;
