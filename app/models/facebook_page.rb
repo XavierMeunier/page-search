@@ -14,6 +14,8 @@ class FacebookPage < ActiveRecord::Base
       else
         new_logo_name = "logo_" + FacebookPage.new_logo_name + ".png"
         
+        Dir.mkdir("public/page_logos") unless Dir.exist?("public/page_logos/")
+        
         Dir.chdir("public/page_logos/") do
           logo = File.new(new_logo_name,  "wb")
           open(logo, "wb") do |file|
