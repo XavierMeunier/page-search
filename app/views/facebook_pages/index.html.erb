@@ -6,7 +6,7 @@
 <% end %>
 
 
-<% if !@fb_page.blank? %>
+<% if @fb_page && !@fb_page.blank? %>
 <div class="result_container">
   <div class="result">
     <div class="infos">
@@ -25,6 +25,7 @@
 </div>
 <hr class="mid_sep" />
 <% end %>
+<% if @fb_page && !@fb_page.blank? %>
 <div class="recent_searches_container">
   <div class="recent_searches">
     <h2>Recent Searches</h2> 
@@ -47,3 +48,4 @@
     <% end %>
   </div>
 </div>
+<% end %>

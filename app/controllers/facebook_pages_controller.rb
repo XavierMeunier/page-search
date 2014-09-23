@@ -2,7 +2,7 @@ class FacebookPagesController < ApplicationController
 
   def index
     @fb_page = FacebookPage.find_by_fb_id(params[:fb_id]) if params[:fb_id]
-    @fb_pages = FacebookPage.last(5).reverse
+    @fb_pages = FacebookPage.last(5).reverse if !FacebookPage.all.blank?
     respond_to do |format|
       format.html
       format.json { render json: @fb_pages }
