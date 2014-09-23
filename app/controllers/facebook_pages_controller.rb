@@ -2,7 +2,10 @@ class FacebookPagesController < ApplicationController
 
   def index
     @fb_page = FacebookPage.find_by_fb_id(params[:fb_id]) if params[:fb_id]
-    @fb_pages = FacebookPage.last(5).reverse if !FacebookPage.all.blank?
+    @fb_pages = FacebookPage.all.sort { |a,b| a.updated_at <=> b.updated_at }.reverse.take(5) unless FacebookPage.all.blank?
+    
+Rails.logger.debug "@fb_pages : #{@fb_pages}"   
+    
     respond_to do |format|
       format.html
       format.json { render json: @fb_pages }
@@ -14,7 +17,7 @@ class FacebookPagesController < ApplicationController
     @feeds = @fb_page.search_feeds
     respond_to do |format|
       format.html
-      format.json { render json: @fb_pages }
+      format.json { render json: @fb_page }
     end
   end
 
@@ -23,6 +26,7 @@ class FacebookPagesController < ApplicationController
     @fb_page = FacebookPage.search_page(params[:fb_id]) if @fb_page.blank?
     
     if @fb_page.is_a?(FacebookPage)
+      @fb_page.update_attributes(updated_at: Time.now)
       redirect_to index_path(@fb_page.fb_id)
     else
       redirect_to root_path, alert: "No Facebook page found."
