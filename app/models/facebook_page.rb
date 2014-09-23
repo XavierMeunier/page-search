@@ -14,10 +14,13 @@ class FacebookPage < ActiveRecord::Base
       else
         new_logo_name = "logo_" + FacebookPage.new_logo_name + ".png"
         target_path = "public/page_logos/" + new_logo_name
-        open(new_logo_name, 'wb') do |file|
+        
+        logo = File.new(new_logo_name,  "wb")
+        open(logo, "wb") do |file|
           file << open(new_fb_info[:logo]).read
-          File.rename file, target_path
         end
+        File.rename logo, target_path
+        
         new_fb_info[:logo] = new_logo_name
         fb_page = FacebookPage.new(new_fb_info)
       end
