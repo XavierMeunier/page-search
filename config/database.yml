@@ -82,7 +82,7 @@ test:
 #
 production:
   <<: *default
-  url: <%= ENV['HEROKU_POSTGRESQL_JADE_URL'] %>
+  url: <%= ENV['DATABASE_URL'] %>
 #  database: page-search_production
 #  username: page-search
 #  password: <%= ENV['PAGE-SEARCH_DATABASE_PASSWORD'] %>
