@@ -34,7 +34,7 @@ class FacebookPage < ActiveRecord::Base
   
   # Call to find feeds
   def search_feeds
-    feeds = self.api_search_feeds(access_token)
+    feeds = self.api_search_feeds
   end
   
   # To retrieve the file
