@@ -34,6 +34,9 @@ class FacebookPage < ActiveRecord::Base
   
   # Call to find feeds
   def search_feeds(access_token = nil)
+Rails.logger.debug "SEARCH FEEDS"
+Rails.logger.debug "access_token: #{access_token}"
+
     feeds = self.api_search_feeds(access_token)
   end
   
@@ -73,9 +76,18 @@ class FacebookPage < ActiveRecord::Base
 
   # Get feeds of a specific page
   def api_search_feeds(access_token = nil)
-    access_token = Rails.application.secrets.facebook_app_id.to_s + "|" + Rails.application.secrets.facebook_app_secret.to_s if access_token.blank?
+    access_token = (Rails.application.secrets.facebook_app_id.to_s + "|" + Rails.application.secrets.facebook_app_secret.to_s) if access_token.blank?
+
+Rails.logger.debug "API SEARCH FEEDS"
+Rails.logger.debug "access_token: #{access_token}"
+
     url = URI::encode("https://graph.facebook.com/" + self.fb_id.to_s + "/posts?limit=20&access_token="+ access_token.to_s)
     fb_feed_req = ApiAdapter.api_caller(:get, url)
+
+Rails.logger.debug "prepared_url : #{url}"
+
+Rails.logger.debug "API SEARCH FEEDS Result"
+Rails.logger.debug "fb_feed_req #{fb_feed_req}"
 
     if fb_feed_req["response"] == 0 && !fb_feed_req["data"][:data].blank?
       fb_feeds = []
