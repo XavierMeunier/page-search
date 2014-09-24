@@ -5,9 +5,9 @@ class FacebookPage < ActiveRecord::Base
   validates :likes, numericality: true, allow_nil: true
   validates :name,  presence: true
   
-
+  # Call to find Facebook Page
   def self.search_page(fb_id)
-    new_fb_info = FacebookPage.api_search_page(fb_id)
+    new_fb_info = FacebookPage.api_search_page(fb_id, access_token)
     if !new_fb_info.blank?
       if fb_page = FacebookPage.find_by_fb_id(fb_id)
         fb_page.attributes = new_fb_info
@@ -32,16 +32,19 @@ class FacebookPage < ActiveRecord::Base
     end
   end
   
-  def search_feeds
-    feeds = self.api_search_feeds
+  # Call to find feeds
+  def search_feeds(access_token = nil)
+    feeds = self.api_search_feeds(access_token)
   end
   
+  # To retrieve the file
   def logo_path
     "/page_logos/" + self.logo.to_s
   end
   
   protected
   
+  # Find new name for logo
   def self.new_logo_name
     logo_name = SecureRandom.hex(10)
     while !FacebookPage.find_by_logo(logo_name).blank?
@@ -50,6 +53,7 @@ class FacebookPage < ActiveRecord::Base
     logo_name
   end
   
+  # Search page on Facebook
   def self.api_search_page(fb_id)
     url = "http://graph.facebook.com/" + fb_id.to_s + "/?fields=global_brand_page_name,likes,link,website,name,username,description,cover,about,picture.type(large)"
     fb_info_req = ApiAdapter.api_caller(:get, url)
@@ -67,11 +71,11 @@ class FacebookPage < ActiveRecord::Base
     end
   end
 
-  def api_search_feeds
-    url = URI::encode("https://graph.facebook.com/" + self.fb_id.to_s + "/posts?limit=20&access_token="+ Rails.application.secrets.facebook_app_id.to_s + "|" + Rails.application.secrets.facebook_app_secret.to_s)
+  # Get feeds of a specific page
+  def api_search_feeds(access_token = nil)
+    access_token = Rails.application.secrets.facebook_app_id.to_s + "|" + Rails.application.secrets.facebook_app_secret.to_s if access_token.blank?
+    url = URI::encode("https://graph.facebook.com/" + self.fb_id.to_s + "/posts?limit=20&access_token="+ access_token.to_s)
     fb_feed_req = ApiAdapter.api_caller(:get, url)
-
-Rails.logger.debug "#{fb_feed_req}"
 
     if fb_feed_req["response"] == 0 && !fb_feed_req["data"][:data].blank?
       fb_feeds = []
@@ -108,13 +112,24 @@ Rails.logger.debug "#{fb_feed_req}"
     end
   end
   
-  
+  # To get picture of contributor on FacebookPage
   def self.api_search_picture(fb_id)
     url = "http://graph.facebook.com/" + fb_id.to_s + "/?fields=picture.type(large)"
     fb_picture_req = ApiAdapter.api_caller(:get, url)
 
     if fb_picture_req["response"] == 0 && !fb_picture_req["data"][:id].blank?
       fb_picture = fb_info_req["data"][:picture][:data][:url]
+    else
+      nil
+    end
+  end
+  
+  # To get longer access Token (for futur feature)
+  def self.get_extended_token(access_token)
+    url = "https://graph.facebook.com/oauth/access_token?grant_type=fb_exchange_token&client_id=" + Rails.application.secrets.facebook_app_id + "&client_secret=" + Rails.application.secrets.facebook_app_secret + "&fb_exchange_token=" + access_token
+    fb_access_req = ApiAdapter.api_caller(:get, url)
+    if fb_picture_req["response"] == 0 && !fb_picture_req["data"].blank?
+      fb_extended_token = fb_info_req["data"]
     else
       nil
     end
