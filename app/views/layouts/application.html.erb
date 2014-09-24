@@ -29,6 +29,23 @@ window.fbAsyncInit = function() {
     version    : 'v2.1' // use version 2.1
   });
 
+  FB.getLoginStatus(function(response) {
+    statusChangeCallback(response);
+  });
+
+  FB.login(function(response) {
+    if (response.status === 'connected') {
+      console.log("Connected in FB.Login!");
+      console.log(response);
+    } else if (response.status === 'not_authorized') {
+      console.log("not authorized in FB.Login!");
+    } else {
+      console.log("not logged into FB.Login!");
+    }
+  });
+
+};
+
   // Load the SDK asynchronously
   (function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
@@ -50,28 +67,11 @@ window.fbAsyncInit = function() {
     }
   }
 
-  FB.login(function(response) {
-    if (response.status === 'connected') {
-    console.log("Connected in FB.Login!");
-    console.log(response);
-    } else if (response.status === 'not_authorized') {
-    console.log("not authorized in FB.Login!");
-    } else {
-    console.log("not logged into FB.Login!");
-    }
-  });
-
   function checkLoginState() {
     FB.getLoginStatus(function(response) {
       statusChangeCallback(response);
     });
   }
-
-  FB.getLoginStatus(function(response) {
-    statusChangeCallback(response);
-  });
-
-};
 
 
 /*
