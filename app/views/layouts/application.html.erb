@@ -2,21 +2,22 @@
 <html>
 <head>
   <title>PageSearch</title>
-<%= favicon_link_tag %>
-<meta property="og:title"       content="Search for Facebook Page" />
-<meta property="og:site_name"   content="Page Search"/>
-<meta property="og:url"         content="http://page-search.herokuapp.com" />
-<meta property="og:description" content="Page Search is web app to find informations and lasts feeds from a specific Facebook Page. The purpose of Page Search is to give a user friendly experience about facebook informations." />
-<meta property="fb:app_id"      content="<%= Rails.application.secrets.facebook_app_id %>" />
-<meta property="og:type"        content="article" />
-<meta property="og:locale"      content="fr_FR" />
-<meta property="og:image"       content="<%= image_tag 'logo.png' %>" /> 
+  <%= favicon_link_tag %>
+  <meta property="og:title"       content="Search for Facebook Page" />
+  <meta property="og:site_name"   content="Page Search"/>
+  <meta property="og:url"         content="http://page-search.herokuapp.com" />
+  <meta property="og:description" content="Page Search is web app to find informations and lasts feeds from a specific Facebook Page. The purpose of Page Search is to give a user friendly experience about facebook informations." />
+  <meta property="fb:app_id"      content="<%= Rails.application.secrets.facebook_app_id %>" />
+  <meta property="og:type"        content="article" />
+  <meta property="og:locale"      content="fr_FR" />
+  <meta property="og:image"       content="<%= image_tag 'logo.png' %>" /> 
 
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+<div id="fb-root"></div>
 <script>
   window.fbAsyncInit = function() {
     FB.init({
