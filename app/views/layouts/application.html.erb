@@ -31,7 +31,7 @@ window.fbAsyncInit = function() {
 
   FB.getLoginStatus(function(response) {
     if (response.status === 'connected') {
-      set_access_token(String(response.authResponse.accessToken);
+      set_access_token(String(response.authResponse.accessToken));
     }
     else if (response.status === 'not_authorized') {
       console.log("not authorized!");
@@ -42,7 +42,7 @@ window.fbAsyncInit = function() {
 
   FB.login(function(response) {
     if (response.status === 'connected') {
-      set_access_token(String(response.authResponse.accessToken);
+      set_access_token(String(response.authResponse.accessToken));
     } else if (response.status === 'not_authorized') {
       console.log("not authorized in FB.Login!");
     } else {
