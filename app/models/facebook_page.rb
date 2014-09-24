@@ -33,10 +33,7 @@ class FacebookPage < ActiveRecord::Base
   end
   
   # Call to find feeds
-  def search_feeds(access_token = nil)
-Rails.logger.info "SEARCH FEEDS"
-Rails.logger.info "access_token: #{access_token}"
-
+  def search_feeds
     feeds = self.api_search_feeds(access_token)
   end
   
@@ -75,19 +72,10 @@ Rails.logger.info "access_token: #{access_token}"
   end
 
   # Get feeds of a specific page
-  def api_search_feeds(access_token = nil)
-    access_token = access_token.blank? ? (Rails.application.secrets.facebook_app_id.to_s + "|" + Rails.application.secrets.facebook_app_secret.to_s) : FacebookPage.get_extended_token(access_token)
-
-Rails.logger.info "API SEARCH FEEDS"
-Rails.logger.info "access_token: #{access_token}"
-
+  def api_search_feeds
+    access_token = (Rails.application.secrets.facebook_app_id.to_s + "|" + Rails.application.secrets.facebook_app_secret.to_s)
     url = URI::encode("https://graph.facebook.com/" + self.fb_id.to_s + "/posts?limit=20&access_token="+ access_token.to_s)
     fb_feed_req = ApiAdapter.api_caller(:get, url)
-
-Rails.logger.info "prepared_url : #{url}"
-
-Rails.logger.info "API SEARCH FEEDS Result"
-Rails.logger.info "fb_feed_req #{fb_feed_req}"
 
     if fb_feed_req["response"] == 0 && !fb_feed_req["data"][:data].blank?
       fb_feeds = []
@@ -135,21 +123,5 @@ Rails.logger.info "fb_feed_req #{fb_feed_req}"
       nil
     end
   end
-  
-  # To get longer access Token (for futur feature)
-  def self.get_extended_token(access_token)
-    url = "https://graph.facebook.com/oauth/access_token?grant_type=fb_exchange_token&client_id=" + Rails.application.secrets.facebook_app_id.to_s + "&client_secret=" + Rails.application.secrets.facebook_app_secret.to_s + "&fb_exchange_token=" + access_token.to_s
-    fb_access_req = ApiAdapter.api_caller(:get, url)
-
-Rails.logger.info "GET EXTENDED TOKEN"
-Rails.logger.info "fb_access_req #{fb_access_req}"
-
-    if fb_access_req["response"] == 0 && !fb_access_req["data"].blank?
-      fb_extended_token = fb_access_req["data"]
-    else
-      nil
-    end
-  end
-
   
 end

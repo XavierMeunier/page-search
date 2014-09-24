@@ -13,11 +13,7 @@ class FacebookPagesController < ApplicationController
   def show
     @fb_page = FacebookPage.find(params[:id])
     if @fb_page
-Rails.logger.info "SHOW"
-Rails.logger.info "params #{params}"
-Rails.logger.info "access_token: #{params[:access_token]}"
-      access_token = params[:access_token] != "0" ? params[:access_token] : nil
-      @feeds = @fb_page.search_feeds(access_token)
+      @feeds = @fb_page.search_feeds
       if @feeds
         respond_to do |format|
           format.html

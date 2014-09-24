@@ -10,12 +10,12 @@
 <div class="result_container">
   <div class="result">
     <div class="infos">
-      <%= link_to(feeds_path(@fb_page.id, 0)) do %>
+      <%= link_to(feeds_path(@fb_page.id)) do %>
         <img src="<%= @fb_page.logo_path%>" alt="<%= @fb_page.name %>" width="150" height="150" />
       <% end %>
       <div class="like"><span><%= @fb_page.likes %></span> Likes</div>
       <div class="text">
-        <%= link_to(feeds_path(@fb_page.id, 0)) do %>
+        <%= link_to(feeds_path(@fb_page.id)) do %>
           <h3><%= @fb_page.name %></h3><br />
         <% end %>
         <p><%= @fb_page.description %></p>
@@ -33,12 +33,12 @@
       <% @fb_pages.each do |f| %>
         <div class="page">
           <div class="name">
-            <%= link_to feeds_path(f.id, 0) do %>
+            <%= link_to feeds_path(f.id) do %>
               <h3><%= f.name %></h3>
             <% end %>
           </div>
           <div class="box">
-            <%= link_to(feeds_path(f.id, 0)) do %>
+            <%= link_to(feeds_path(f.id)) do %>
               <img src="<%= f.logo_path%>" alt="<%= f.name %>" width="150" height="150" />
             <% end %>
             <div class="like"><span><%= f.likes %></span> Likes</div>
