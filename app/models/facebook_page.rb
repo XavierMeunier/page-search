@@ -7,7 +7,7 @@ class FacebookPage < ActiveRecord::Base
   
   # Call to find Facebook Page
   def self.search_page(fb_id)
-    new_fb_info = FacebookPage.api_search_page(fb_id, access_token)
+    new_fb_info = FacebookPage.api_search_page(fb_id)
     if !new_fb_info.blank?
       if fb_page = FacebookPage.find_by_fb_id(fb_id)
         fb_page.attributes = new_fb_info
