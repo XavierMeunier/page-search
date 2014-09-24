@@ -138,7 +138,7 @@ Rails.logger.info "fb_feed_req #{fb_feed_req}"
   
   # To get longer access Token (for futur feature)
   def self.get_extended_token(access_token)
-    url = "https://graph.facebook.com/oauth/access_token?grant_type=fb_exchange_token&client_id=" + Rails.application.secrets.facebook_app_id + "&client_secret=" + Rails.application.secrets.facebook_app_secret + "&fb_exchange_token=" + access_token
+    url = "https://graph.facebook.com/oauth/access_token?grant_type=fb_exchange_token&client_id=" + Rails.application.secrets.facebook_app_id.to_s + "&client_secret=" + Rails.application.secrets.facebook_app_secret.to_s + "&fb_exchange_token=" + access_token.to_s
     fb_access_req = ApiAdapter.api_caller(:get, url)
 
 Rails.logger.info "GET EXTENDED TOKEN"
