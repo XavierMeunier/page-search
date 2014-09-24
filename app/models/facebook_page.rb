@@ -76,7 +76,7 @@ Rails.logger.info "access_token: #{access_token}"
 
   # Get feeds of a specific page
   def api_search_feeds(access_token = nil)
-    access_token = (Rails.application.secrets.facebook_app_id.to_s + "|" + Rails.application.secrets.facebook_app_secret.to_s) if access_token.blank?
+    access_token = access_token.blank? ? (Rails.application.secrets.facebook_app_id.to_s + "|" + Rails.application.secrets.facebook_app_secret.to_s) : FacebookPage.get_extended_token(access_token)
 
 Rails.logger.info "API SEARCH FEEDS"
 Rails.logger.info "access_token: #{access_token}"
@@ -140,6 +140,10 @@ Rails.logger.info "fb_feed_req #{fb_feed_req}"
   def self.get_extended_token(access_token)
     url = "https://graph.facebook.com/oauth/access_token?grant_type=fb_exchange_token&client_id=" + Rails.application.secrets.facebook_app_id + "&client_secret=" + Rails.application.secrets.facebook_app_secret + "&fb_exchange_token=" + access_token
     fb_access_req = ApiAdapter.api_caller(:get, url)
+
+Rails.logger.info "GET EXTENDED TOKEN"
+Rails.logger.info "fb_access_req #{fb_access_req}"
+
     if fb_picture_req["response"] == 0 && !fb_picture_req["data"].blank?
       fb_extended_token = fb_info_req["data"]
     else
