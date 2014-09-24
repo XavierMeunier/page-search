@@ -22,14 +22,12 @@
 
   function statusChangeCallback(response) {
     if (response.status === 'connected') {
-      
+      console.log("Connected!")
     } else if (response.status === 'not_authorized') {
-      document.getElementById('status').innerHTML = 'Please log ' +
-        'into this app.';
+      console.log("not authorized!")
       FB.login();
     } else {
-      document.getElementById('status').innerHTML = 'Please log ' +
-        'into Facebook.';
+      console.log("not connected!")
       FB.login();
     }
   }
