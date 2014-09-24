@@ -44,6 +44,7 @@ window.fbAsyncInit = function() {
   FB.login(function(response) {
     if (response.status === 'connected') {
       console.log("Connected in FB.Login!");
+      $("#access_token").val(response)
       console.log(response);
     } else if (response.status === 'not_authorized') {
       console.log("not authorized in FB.Login!");
@@ -95,6 +96,7 @@ window.fbAsyncInit = function() {
       <h1>Page Search</h1>
     </div>
     <%= form_tag(controller: "facebook_pages", action: "page_search", method: "post") do %>
+      <%= hidden_field_tag :access_token, params[:access_token] %>
       <%= text_field_tag :fb_id, params[:fb_id], placeholder: "Example: 8946498596" %>
       <%= submit_tag "Search", class: "btn btn-large btn-primary" %>
     <% end %>
