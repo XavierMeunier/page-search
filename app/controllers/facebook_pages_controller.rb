@@ -16,7 +16,7 @@ class FacebookPagesController < ApplicationController
 Rails.logger.info "SHOW"
 Rails.logger.info "params #{params}"
 Rails.logger.info "access_token: #{params[:access_token]}"
-      access_token = params[:access_token] != 0 ? params[:access_token] : nil
+      access_token = params[:access_token] != "0" ? params[:access_token] : nil
       @feeds = @fb_page.search_feeds(access_token)
       if @feeds
         respond_to do |format|
