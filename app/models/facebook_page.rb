@@ -71,13 +71,25 @@ class FacebookPage < ActiveRecord::Base
     url = URI::encode("https://graph.facebook.com/" + self.fb_id.to_s + "/posts?limit=20&access_token="+ Rails.application.secrets.facebook_app_id.to_s + "|" + Rails.application.secrets.facebook_app_secret.to_s)
     fb_feed_req = ApiAdapter.api_caller(:get, url)
 
+Rails.logger.debug "#{fb_feed_req}"
+
     if fb_feed_req["response"] == 0 && !fb_feed_req["data"][:data].blank?
       fb_feeds = []
       
       fb_feed_req["data"][:data].each_with_index do |feed, index|
         if !feed[:message].blank? && !feed[:link].blank?
           fb_feed = {}
-          fb_feed[:from] = feed[:from][:name]
+          fb_feed[:from] = {}
+          fb_feed[:from][:name] = feed[:from][:name]
+          
+          if self.name != feed[:from][:name]
+            fb_page = FacebookPage.find_by_fb_id(feed[:from][:id])
+            picture = fb_page.blank? ? FacebookPage.api_search_picture(feed[:from][:id]) : fb_page.logo_path
+            fb_feed[:from][:picture] = picture unless picture.blank?
+          else
+            fb_feed[:from][:picture] = self.logo_path
+          end
+          
           fb_feed[:message] = feed[:message]
           fb_feed[:created_at] = feed[:created_time]
           fb_feed[:content] = {}
@@ -96,6 +108,17 @@ class FacebookPage < ActiveRecord::Base
     end
   end
   
+  
+  def self.api_search_picture(fb_id)
+    url = "http://graph.facebook.com/" + fb_id.to_s + "/?fields=picture.type(large)"
+    fb_picture_req = ApiAdapter.api_caller(:get, url)
+
+    if fb_picture_req["response"] == 0 && !fb_picture_req["data"][:id].blank?
+      fb_picture = fb_info_req["data"][:picture][:data][:url]
+    else
+      nil
+    end
+  end
 
   
 end
