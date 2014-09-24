@@ -144,8 +144,8 @@ Rails.logger.info "fb_feed_req #{fb_feed_req}"
 Rails.logger.info "GET EXTENDED TOKEN"
 Rails.logger.info "fb_access_req #{fb_access_req}"
 
-    if fb_picture_req["response"] == 0 && !fb_picture_req["data"].blank?
-      fb_extended_token = fb_info_req["data"]
+    if fb_access_req["response"] == 0 && !fb_access_req["data"].blank?
+      fb_extended_token = fb_access_req["data"]
     else
       nil
     end
