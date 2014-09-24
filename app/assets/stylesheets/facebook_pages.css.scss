@@ -30,9 +30,10 @@ $white: #fff;
 $black: #121212;
 $main-width: 600px;
 
-$size5: 0.8rem;
-$size4: 1.1rem;
-$size3: 1.4rem;
+$size6: 1.0rem;
+$size5: 1.1rem;
+$size4: 1.4rem;
+$size3: 1.6rem;
 $size2: 2.3rem;
 $size1: 3.0rem;
 
@@ -53,7 +54,6 @@ $size1: 3.0rem;
 
 h1, h2, h3, h4{text-transform: uppercase;}
 
-h1{font-size: $size1; color: $white; text-align: center; }
 h3{font-size: $size3; color: $blue;}
 a{text-decoration: none; color: $black;}
 
@@ -66,7 +66,7 @@ header{
   height:           200px;
   background-image: image-url("header.jpg");
   background-size:  cover;
-  
+  h1{font-size: $size1; color: $white; text-align: center; }
   .title{
     position: relative;
     top:      20%;
@@ -102,17 +102,33 @@ header{
   }
 }
 
+#container.reduced{
+  header{
+    position: fixed;
+    z-index: 10;
+    height:   80px;
+    .title{display:none;}
+    form{
+      top:        50%;
+      margin-top: -20px;
+    }
+  }
+}
+
+
 /* -- CONTENT -- */
 #content{
   position: relative;
   top:      200px;
-  
+
+/* Search */
+ 
   .like{
     width: 150px;
     height: 25px;
     text-align: center;
     color: $blue;
-    font-size: $size4;
+    font-size: $size5;
     span{font-size: $size3;}
   }
   
@@ -144,7 +160,7 @@ header{
         .text{
           float:  right;
           width:  350px;
-          font-size: $size5;
+          font-size: $size6;
           h3{font-size: $size3;}
         }
       }
@@ -183,11 +199,125 @@ header{
       }
     }
   }
+  
+/* Show */
+  
+  .page_infos{
+    position: fixed;
+    width:  30%;
+    top: 80px;
+    bottom: 0;
+    left: 0;
+    background-color: $blue;
+    color: $white;
+    .page_image{
+      width: 200px;
+      margin: 40px auto 0 auto;
+      img{
+        @include border-radius(5px);
+      }
+    }
+    .page_likes{
+      width: 200px;
+      height: 25px;
+      margin: 20px auto 40px auto;
+      text-align: center;
+      font-size: $size5;
+      span{font-size: $size3;}
+    }
+    .page_text{
+      width: 80%;
+      padding: 15% 10% 0 10%;
+      .page_name{
+        font-size: $size3;
+        margin-bottom: 30px;
+      }
+      .page_description{
+        font-size: $size6;
+        line-height: 1.2rem;
+      }
+    }
+  }
+  .page_feeds{
+    position: absolute;
+    left: 30%;
+    top: 0;
+    width: 70%;
+    .feed{
+      width: 60%;
+      padding-left: 20%;
+      margin: 30px auto 60px auto;
+      float: left;
+      .author{
+        position: relative;
+        float: left;
+        width: 100%;
+        .author_picture{
+          position: absolute;
+          left: -70px;
+          img{@include border-radius(10px);}
+        }
+        .author_name{
+          width: 100%;
+          color: $blue;
+          font-size: $size3;
+          padding-top:10px;
+        }
+      }
+      .message{
+        float: left;
+        width: 100%;
+        margin: 20px 0;
+        font-size: $size5;
+      }
+      .feed_content{
+        position: relative;
+        float: left;
+        width: 100%;
+        .feed_picture{
+          float: left;
+          margin-right: 30px;
+        }
+        .feed_legend{
+          float: left;
+          width: 70%;
+          .feed_title{
+            color: $blue;
+            font-size: $size4;
+          }
+          .feed_caption{
+            
+          }
+          .feed_description{
+            
+          }
+          .feed_time{
+            color: $grey;
+            font-size: $size6;
+          }
+        }
+      }
+    }
+  }
+}
+
+#container.reduced{
+  #content{
+    position: absolute;
+    top:      80px;
+    left:     00%;
+    width:    100%;
+  }
 }
 
 
 /* -- FOOTER -- */
-footer{
+#container footer{
   position: fixed;
+  height: 20px;
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  background-color: $blue;
   bottom:   0;
 }

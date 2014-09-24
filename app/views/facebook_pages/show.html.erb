@@ -1,40 +1,67 @@
-Show
+<% provide :extra_class, "reduced" %>
+<div class="page_infos">
 
-<%= @fb_page.name%> App
+  <div class="page_image">
+    <img src="<%= @fb_page.logo_path %>" alt="<%= @fb_page.name %>" />
+  </div>
+  <div class="page_likes">
+    <span><%= @fb_page.likes %></span> Likes
+  </div>
+  <div class="page_text">
+    <div class="page_name">
+      <h1><%= @fb_page.name %></h1>
+    </div>
+    <div class="page_description">
+      <%= @fb_page.description %>
+    </div>
+  </div>  
+</div>
 
-Feeds : 
+<div class="page_feeds">
+<% @feeds.each do |f| %>
 
-<% @feeds.each_with_index do |f, index| %>
+  <article class="feed">
+    <div class="author">
+      <div class="author_picture">
+        <img src="<%= f[:from][:picture] %>" alt="<%= f[:from][:name] %>" width="50" height="50" />
+      </div>
+      <div class="author_name">
+        <%= f[:from][:name]%>
+      </div>
+    </div>
+    
+    <div class="message">
+      <%= f[:message] %>
+    </div>
 
-  INDEX : <%= index%><br />
-
-  <a href="<%= f[:content][:link] %>">
-    <%= f[:from] %><br />
-    <%= f[:message] %><br />
-    <%= time_ago_in_words(Time.parse(f[:created_at])) %><br />
-    <h2><%= f[:content][:title]%></h2><br />
-    <h4><%= f[:content][:caption]%></h4><br />
-    <img src="<%= f[:content][:picture] %>" /><br />
-    <p>
-      <%= f[:content][:description]%>
-    </p><br />
-  </a>
-  <br />
-  <br />
-  <%= f.to_s%>
-  <br />
-  <br />
-  <br />
-  <br />
-  <br />
-  <br />
-  <br />
-  <br />
-<% end %>
-
-<div
-  class="fb-like"
-  data-share="true"
-  data-width="450"
-  data-show-faces="true">
+    <div class="feed_content">
+      <div class="feed_picture">
+  <%= link_to(f[:content][:link]) do %>
+        <img src="<%= f[:content][:picture] %>" />
+  <% end %>
+      </div>
+      <div class="feed_legend">
+        <div class="feed_title">
+  <%= link_to(f[:content][:link]) do %>
+          <%= f[:content][:title] %>
+  <% end %>
+        </div>
+        <div class="feed_caption">
+  <%= link_to(f[:content][:link]) do %>
+          <%= f[:content][:caption] %>
+  <% end %>
+        </div>
+        <div class="feed_description">
+  <%= link_to(f[:content][:link]) do %>
+          <%= f[:content][:description] %>
+  <% end %>
+        </div>
+        <div class="feed_time">
+          il y a <%= time_ago_in_words(Time.parse(f[:created_at])) %>
+        </div>
+      </div>
+    </div>
+  </article>
+  <hr class="mid_sep" />
+<% end %>  
 </div>

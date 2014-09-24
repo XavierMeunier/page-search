@@ -2,6 +2,16 @@
 <html>
 <head>
   <title>PageSearch</title>
+<%= favicon_link_tag %>
+<meta property="og:title"       content="Search for Facebook Page" />
+<meta property="og:site_name"   content="Page Search"/>
+<meta property="og:url"         content="http://page-search.herokuapp.com" />
+<meta property="og:description" content="Page Search is web app to find informations and lasts feeds from a specific Facebook Page. The purpose of Page Search is to give a user friendly experience about facebook informations." />
+<meta property="fb:app_id"      content="<%= Rails.application.secrets.facebook_app_id %>" />
+<meta property="og:type"        content="article" />
+<meta property="og:locale"      content="fr_FR" />
+<meta property="og:image"       content="<%= image_tag 'logo.png' %>" /> 
+
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
@@ -24,13 +34,13 @@
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
 </script>
-<div id="container">
+<div id="container" <%= "class=#{yield(:extra_class)}" unless yield(:extra_class).blank? %>>
   <header>
     <div class="title">
       <h1>Page Search</h1>
     </div>
     <%= form_tag(controller: "facebook_pages", action: "page_search", method: "post") do %>
-      <%= text_field_tag :fb_id, params[:fb_id], placeholder: "Exemple: 8946498596" %>
+      <%= text_field_tag :fb_id, params[:fb_id], placeholder: "Example: 8946498596" %>
       <%= submit_tag "Search", class: "btn btn-large btn-primary" %>
     <% end %>
   </header>
