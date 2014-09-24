@@ -31,8 +31,7 @@ window.fbAsyncInit = function() {
 
   FB.getLoginStatus(function(response) {
     if (response.status === 'connected') {
-      console.log("connected in getLogin");
-      console.log("value : " + String(response.authResponse.accessToken));
+      set_access_token(String(response.authResponse.accessToken);
     }
     else if (response.status === 'not_authorized') {
       console.log("not authorized!");
@@ -43,10 +42,7 @@ window.fbAsyncInit = function() {
 
   FB.login(function(response) {
     if (response.status === 'connected') {
-      console.log("Connected in FB.Login!");
-      console.log("value : " + String(response.authResponse.accessToken));
-      $("#access_token").val(String(response.authResponse.accessToken));
-      console.log(response);
+      set_access_token(String(response.authResponse.accessToken);
     } else if (response.status === 'not_authorized') {
       console.log("not authorized in FB.Login!");
     } else {
@@ -55,6 +51,15 @@ window.fbAsyncInit = function() {
   });
 
 };
+
+  function set_access_token(access_token){
+    $( "a" ).each(function() {
+      link = $( this ).attr( "href" );
+      virgin_link = link.slice(0,-1);
+      new_link = virgin_link + access_token;
+      $( this ).attr( "href", new_link );
+    });
+  }
 
   // Load the SDK asynchronously
   (function(d, s, id) {
